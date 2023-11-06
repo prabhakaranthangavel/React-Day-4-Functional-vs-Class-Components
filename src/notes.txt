@@ -1,0 +1,316 @@
+Content
+
+1.Components - In-depth [Functional vs Class Component]
+2.Creating a multiple class component
+3.passing props Functional & Class Component
+4.Component life cycle
+5.state
+6.Stateful and stateless components
+
+*************************************************************************************************************************
+
+1.Functional vs Class Component
+
+Functional Component Example:
+import React from 'react'
+
+function App() {
+  return (
+    <div>Welcome To Our React World</div>
+  )
+}
+
+export default App
+
+                    *************************************************************
+
+Class Component Example:
+import React, { Component } from 'react'
+
+class App extends Component {
+  render(){
+  return (
+    <div>Welcome To Our React World</div>
+  )
+}
+}
+export default App
+
+
+இரண்டுக்குமான output:
+Welcome To Our React World
+
+
+கவனிக்க வேண்டியவை:
+
+===>இரண்டு Component முறையை பயன்படுத்தியும் நம்மால் output ஐ பெற முடியும்.
+
+===>அதற்கான Example ஐ மேற்கண்ட மேலே குறிப்பிட்டுள்ளோம்.
+
+===>அதிகம் பயன்படுத்தக்கூடியது அல்லது Advanced for : Functional Component ஆகும்.
+
+===>Class Component ஐ பயன்படுத்தும் போதே கீழே உள்ள keywords அவசியம்.
+    class App extends Component
+
+    class     => keyword
+    App       => Component Name
+    extends   => keyword  (extends என்பது parent ல் இருந்து child ஐ create செய்ய உதவும் keyword ஆகும்.)
+    Component => keyword
+
+    render()  => Method of class
+
+*************************************************************************************************************************
+
+2.Creating a multiple class component
+
+import React, { Component } from 'react'
+
+class Hello extends Component {
+  render() {
+    return (
+      <p>Multiple Components Creating in React Class</p>
+    )
+  }
+}
+
+class App extends Component {
+  render(){
+  return (
+    <div>
+      <Hello/>
+    </div>
+  )
+}
+}
+export default App
+
+
+output:
+Multiple Components Creating in React Class
+
+*************************************************************************************************************************
+
+3.passing props Functional & Class Component
+
+Functional Component passing props
+import React from 'react'
+
+function Hello({name}) {
+  return (
+   <p>Multiple Components Creating in React Class So Welcome To {name}</p>
+  )
+}
+
+function App() {
+  return (
+    <div>
+      <Hello name ="Mr.Dhoni"/>
+    </div>
+  )
+}
+
+export default App
+
+                    *************************************************************
+
+Class Component passing props
+import React, { Component } from 'react'
+
+class Hello extends Component {
+  render() {
+    // console.log(this.props);
+    const {name} = this.props;
+    return (
+      <p>Multiple Components Creating in React Class So Welcome To {name}</p>
+    )
+  }
+}
+
+class App extends Component {
+  render(){
+  return (
+    <div>
+      <Hello name = "Mr.Dhoni"/>
+    </div>
+  )
+}
+}
+export default App
+
+இரண்டுக்குமான output:
+Multiple Components Creating in React Class So Welcome To Mr.Dhoni
+
+
+நினைவில் கொள்க:
+
+===>Functional Component ல் props ஐ நாம் அனுப்பும் போது ஒரு argument ஆக அனுப்புவோம்.
+    ஆனால் class Component ல் அவ்வாறு கொடுக்க முடியாது.அதற்கு பதிலாக அதை Destrucutring செய்து this.props இவ்வாறு கொடுப்போம்.
+
+===> console.log(this.props);  console செய்து பார்க்கும்போது நாம் கொடுத்த name or data ஆனது object ஆக இருக்கும்.
+     இது வெறும் புரிந்து கொள்வதற்காக கொடுக்கப்பட்டு பார்க்கப்படுகிறது.
+
+===>this.props என்பது keyword ஆகும்.
+
+===>const {name} = this.props;
+    நமது வசதிக்காக Destrucutring செய்து கொடுக்கிறோம்.
+
+*************************************************************************************************************************
+
+4.Component life cycle
+
+what is component life cycle ? 
+
+===>the different states/stages a component takes from getting created and rendered in the DOM to getting removed from the DOM.
+    Example : மனிதன் [பிறப்பது] [இடைப்பட்ட காலத்தில் செய்யும் செயல்கள்] [இறப்பது] போன்றவை மாதிரி. 
+
+===>class component க்கு மட்டும் life cycle உண்டு.
+    function component க்கு life cycle இல்லை.
+
+===>Different types component life cycles
+    componentDidMount
+    componentDidUpdate
+    componentWillUnmount
+
+===>Example:
+
+import React, { Component } from 'react'
+
+export class App extends Component {
+
+
+// componentDidMount : 
+// ===>called after the component has been rended to the DOM.
+componentDidMount () {
+console.log("Component Mounted")
+}
+
+// componentDidUpdate : 
+// ===>called immediately after the component updated in the DOM.
+// ===>called on state or prop changes.
+componentDidUpdate () {
+console.log("Component DidUpdated")
+}
+
+// componentWillUnmount : 
+// ===>invoked just before the component is removed from the DOM.
+// ===>releasing memory of resources 
+// ===>the detaching the events 
+// ===>cancelling timers
+componentWillUnmount () {
+  console.log("Component WillUnmounted")
+}
+
+  render() {
+    return (
+      <div>App</div>
+    )
+  }
+}
+
+export default App
+
+*************************************************************************************************************************
+
+5.state
+
+what is state?
+
+===>State refers to the data.
+
+===>that is used to manage and represent the internal state of the component.
+
+===>it allows the components to keep track of and manage their own data -> the data will change over the time as a result of user interactions,data fetching or other factors.
+
+===>Whenever the state of a component changes,it will cause re-rendering of the component.
+   
+    அதாவது state என்பது ஒரு data என்பதை குறிக்கும்.
+    data ஆனது change ஆவதை state என்கிறோம்.
+    ஒரு particulat component ல் என்ன செயல்கள்/changes நடைபெறுகிறது.
+    அந்த செயல்களின் stage ஐ state என்று கூறுகிறோம்.
+
+===>எடுத்துக்காட்டாக ஒரு button ஐ click செய்யும்போது வேறொரு data ஆக மாறுவதை state என்று கூறுகிறோம்.
+
+===>ஒரு component க்குள் நாம் data ஐ pass செய்வதை local component state அல்லது internal state என்று அழைக்கலாம்.
+
+
+
+// How to pass data through state using class component
+// எப்படி class component ஐ பயன்படுத்தி state மூலமாக data ஐ pass செய்தல்
+
+import React, { Component } from "react";
+
+class App extends Component {
+  constructor(props) {
+    super(props); // To call the parent class constructor [parent ன் உடைய class constructor ஐ நாம் call செய்வதற்கு அல்லது பெறுவதற்கு super என்ற keyword ஐ பயன்படுத்துகிறோம்.]
+
+    // define the state
+    this.state = {
+      count: 0,
+    };
+  }
+
+  increment = () => {
+    
+    // Update the state(data) of the count
+    this.setState({
+      
+    // provide the new state
+    count: this.state.count + 1,
+
+    });
+  };
+
+  decrement = () => {
+    
+    // Update the state(data) of the count
+    this.setState({
+      
+    // provide the new state
+    count: this.state.count - 1,
+
+    });
+  };
+
+  reset = () => {
+    
+    // Update the state(data) of the count
+    this.setState({
+      
+    // provide the new state
+    count: this.state.count = 0, // or count : 0,
+
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <p>count : {this.state.count}</p>
+        <button onClick={this.increment}>Add the count</button>
+        <button onClick={this.decrement}>Reduce the count</button>
+        <button onClick={this.reset}>Reset All</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+
+===>Kindly console the output.
+
+===>super(props); என்பது To call the parent class constructor [parent ன் உடைய class constructor ஐ நாம் call செய்வதற்கு அல்லது பெறுவதற்கு super என்ற keyword ஐ பயன்படுத்துகிறோம்.]
+
+===>this.state என்பது state ஐ set செய்ய பயன்படும் அல்லது பயன்படுத்தும் keyword ஆகும்.
+
+====>this.setState என்பது state ஐ change செய்ய பயன்படும் அல்லது பயன்படுத்தும் keyword ஆகும்.
+
+*************************************************************************************************************************
+
+6.Stateful and stateless components
+
+====>மேலே உள்ள எடுத்துக்காட்டில் state கொடுத்து பயன்படுத்தி உள்ளோம்.
+     இவ்வாறு ஒரு component க்குள் state ஐ கொடுத்து பயன்படுத்துவது அல்லது செயல்படுத்துவது Stateful component ஆகும்.
+     அவ்வாறு பயன்படுத்த முடியாத பயன்படுத்தவில்லை எனில் அது stateless components என்று அழைக்கப்படும்.
+
+*************************************************************************************************************************
